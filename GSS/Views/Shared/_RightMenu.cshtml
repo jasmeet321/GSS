@@ -1,0 +1,57 @@
+﻿@using GSS.Common
+<div class="well">
+    <!-- Sidebar Block -->
+    <div class="sidebar-block" style="height:450px;">
+
+        <h2 class="h2-sidebar-title sidebar-title  colorchoice">
+            Latest Event Updates
+        </h2>
+        <div class="sidebar-content vticker" id="upcomming-events">
+            <ul class="posts-list news" style="text-align:center; width:100%;">
+                @if (SessionManager.NewsEventsList != null)
+                {
+                    foreach (var events in SessionManager.NewsEventsList)
+                    {
+                        <li style="text-align:center;">
+                            <div class="posts-list-content">
+                                <span class="posts-list-title">
+                                    <strong>
+                                        <a class="posts-list-title" href="@Url.Action(MVC.Home.EventsDetails(events.Id.ToString()))">@events.EventDate.ToString("dddd, MMMM-dd")</a>
+                                    </strong>
+                                </span>
+                                <a href="@Url.Action(MVC.Home.EventsDetails(events.Id.ToString()))">@events.HeadLine</a>
+                            </div>
+                        </li>
+                    }
+                }
+                else
+                {
+                    HttpContext.Current.Response.Redirect("~/Home/Index");
+                }
+
+            </ul>
+        </div>
+    </div>
+</div>
+<div class="section-content section-color-dark-blue white-text">
+    <div class="sidebar-block">
+        <h3 class="h3-sidebar-title sidebar-title center-text">
+            Support Gurdwara Sahib
+        </h3>
+        <div class="section-subscribe">
+            <form class="form-inline" role="form">
+                <div class="form-group">
+                    <div class="input-group donate">
+                        <div class="input-group-addon">$</div>
+                        <input type="email" class="form-control" placeholder="Donation amount">
+                    </div>
+                </div>
+                <div class="space-sep10"></div>
+                <div class="text-center">
+                    <button class="btn btn-sm btn-default">Donate</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</div>

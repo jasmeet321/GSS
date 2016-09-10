@@ -1,0 +1,142 @@
+﻿@model GSS.Models.Models.SubscriptionModel
+@{
+    ViewBag.Title = "Subscription";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+         data-animrepeat="0"
+         data-speed="1s"
+         data-delay="0.4s">
+        <h2 class="h2-section-title">Subscription Form</h2>
+        <div class="i-section-title"></div>
+
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-8 col-md-offset-2  col-sm-12" style="margin-top: 10px;">
+        <div class="contact-body well">
+            @using (Html.BeginForm("Subscription", "Home", FormMethod.Post, new { @id = "subscription-form" }))
+            {
+
+
+
+
+                if ((TempData["Message"] != ""))
+                {
+
+                    <p id="messagedata" class="body_paragraph contact-paragraph" style="color: red">
+
+                        @TempData["Message"]
+                    </p>
+
+                    <br />
+
+                }
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            @Html.CheckBoxFor(a => a.IsSubscribed, new { @name = "IsSubscribed", @style = "margin-top: 10px;" })
+                            <label for="IsSubscribed">
+                                I agree to subscribe for Gurdwara baba makhanshah lubanany event updates *
+                            </label>
+                            @Html.ValidationMessageFor(a => a.IsSubscribed, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="name">
+                                First Name *
+                            </label>
+                            @Html.TextBoxFor(a => a.FirstName, new { @placeholder = "First Name", @name = "name", @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.FirstName, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="email">
+                                LastName *
+                            </label>
+                            @Html.TextBoxFor(a => a.LastName, new { @placeholder = "Last Name", @name = "email", @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.LastName, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="message">
+                                Contact 
+                            </label>
+
+                            @Html.TextBoxFor(a => a.ContactNumber, new { @placeholder = "Contact Number", @name = "phone", @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.ContactNumber, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="message">
+                                Email Address *
+                            </label>
+
+                            @Html.TextBoxFor(a => a.EmailAddress, new { @placeholder = "Email Address", @name = "emailaddress", @class = "form-control" })
+                            @Html.ValidationMessageFor(a => a.EmailAddress, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <label for="message&quot;">
+                                Address 
+                            </label>
+                            @Html.TextAreaFor(a => a.Address, new { @placeholder = "Address", @name = "address", @class = "form-control", @rows = 5 })
+                            @Html.ValidationMessageFor(a => a.Address, "", new { @class = "errorvalid" })
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12 col-sm-12 text-center">
+                        <input type="submit" id="submitbtn" class="btn btn-blue no-padding disabled" value="Submit">
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+
+</div>
+
+
+<script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+
+<script type="text/javascript">
+
+    $(document).ready(function () {
+        $('#IsSubscribed').change(function () {
+            if ($(this).is(":checked")) {
+                $("#submitbtn").removeClass("disabled");
+            }
+            else {
+
+
+                $("#submitbtn").addClass("disabled");
+            }
+
+        });
+
+    });
+
+</script>
+

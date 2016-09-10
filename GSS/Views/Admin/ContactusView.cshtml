@@ -1,0 +1,36 @@
+﻿@model IEnumerable<GSS.Models.Models.ContactUsModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "Contactus Management";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(5);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Contact Us Management  <a href="@Url.Action(MVC.Admin.ContactUs())" class="add-button">Add New</a></h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                     grid.Column("Branch Name", format: @<text>@item.BrachName
+                    </text>),
+                    grid.Column("Address", format: @<text>@item.Address</text>),
+                grid.Column("City", format: @<text>@item.City</text>),
+                    grid.Column("State", format: @<text>@item.State</text>),
+                              grid.Column("Pincode", format: @<text>@item.Pincode</text>),
+                                        grid.Column("Email", format: @<text>@item.Email</text>),
+        grid.Column("Contact Number",format:@<text>@item.Phone</text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteContactus(str))" class="ico del" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.ContactUs(str))" class="ico edit">Edit</a> </text>)
+
+                                                                                        ))
+
+    </div>
+</div>

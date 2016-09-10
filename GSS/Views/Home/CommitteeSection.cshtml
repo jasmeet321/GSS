@@ -1,0 +1,39 @@
+﻿@model List<GSS.Models.Models.CustomModelCommettiee>
+@{
+    ViewBag.Title = "Committee Section";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+        data-animrepeat="0"
+        data-speed="1s"
+        data-delay="0.4s">
+        <h2 class="h2-section-title">Management Committee and Committee Members</h2>
+        <div class="i-section-title"></div>
+
+    </div>
+</div>
+
+<div class="box">
+
+    <div class="panel panel-Gurdwara" data-toggle="off" data-active-index="0">
+        @if (Model.Any())
+        {
+            foreach (var item in Model)
+            {
+                <div class="panel-heading-Gurdwara">
+                    <h5>@item.CommitteeName</h5>
+                </div>
+                <div class="panel-body">
+                    @foreach (var members in item.Listmembers)
+                    {
+                        <div >@members.FirstName  @members.LastName</div>
+                    }
+                </div>
+            }
+        }
+
+    </div>
+</div>

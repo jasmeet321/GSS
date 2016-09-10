@@ -1,0 +1,60 @@
+﻿@model List<GSS.Models.Models.NewsEventsModel>
+
+@{
+    ViewBag.Title = "Events Management";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+}
+
+<script type="text/javascript">
+    check_page(4);
+
+
+</script>
+
+<div class="box">
+    <div class="box-head">
+
+        <h2>Event Management  <a href="@Url.Action(MVC.Admin.NewsEvents())" class="add-button">Add New</a></h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                              grid.Column("Tittle", format: @<text>@item.HeadLine
+                            </text>),
+                                                                                  grid.Column("EventDate", format: @<text>@item.EventDate.ToString("MM/dd/yyyy")</text>),
+                                                                                                   grid.Column("PlaceofEvent", format: @<text>@item.PlaceofEvent</text>),
+                                                                                                                            
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteNewsEvents(str))" class="ico del" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.NewsEvents(str))" class="ico edit">Edit</a> </text>)
+
+                                                                                        ))
+
+    </div>
+</div>
+
+@*<div class="table">
+
+
+        @foreach (var data in Model)
+        {
+            <table class="table table-striped table-bordered table-hover pagination_footer">
+
+                <tr>
+                    <th>Event</th>
+                    <th>Address</th>
+                </tr>
+                <tr>
+                    <td>@data.HeadLine</td>
+                    <td>@data.EventDate.ToString("MM/dd/yyyy")</td>
+                </tr>
+            </table>
+        }
+
+
+    </div>*@
+
+

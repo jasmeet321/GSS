@@ -1,0 +1,52 @@
+﻿@model IEnumerable<GSS.Models.Models.PagesModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "Manage Pages";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script type="text/javascript">
+    check_page(2);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Page Management  <a href="@Url.Action(MVC.Admin.ManagePages())" class="add-button">Add Page</a></h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                              grid.Column("Tittle", format: @<text>@item.Tittle
+        </text>),
+                                                   grid.Column("Description", format: @<text>@if (item.Description.Length > 100)
+                                                                                             {
+
+                                                       @Html.Raw(item.Description.Substring(0, 100) + "...")
+
+                                                                                             }
+                                                                                             else
+                                                                                             {
+                                                       @Html.Raw(item.Description)
+
+                                                                                             }</text>),
+                grid.Column("Content", format: @<text>
+
+        @{ string str = item.Id.ToString(); }
+
+        <a href="@Url.Action(MVC.Admin.ContentView(str))" class="icon-book">Click here to view Page Content..</a>
+
+
+
+
+        </text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeletePage(str))" class="ico del indent" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.ManagePages(str))" class="ico edit indent">Edit</a> </text>)
+
+                                                                                                ))
+
+    </div>
+</div>

@@ -1,0 +1,140 @@
+﻿@using GSS.Common
+@using GSS.Models.Models
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+    <title>@ViewBag.Title -SikhSocietyNazarethPa Gurdwara Admin Area</title>
+    <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
+    <meta name="viewport" content="width=device-width" />
+    @Styles.Render("~/Content/cssAdmin")
+    <script src="~/Scripts/jquery-1.8.2.js"></script>
+    @Scripts.Render("~/bundles/modernizr")
+
+    <script type="text/javascript">
+        function check_page(currentPage) {
+
+            $('#navigation li a').removeClass('active');
+            switch (currentPage) {
+                case 1:
+                    $('#A1').addClass('active');
+                    break;
+                case 2:
+                    $('#A2').addClass('active');
+                    break;
+                case 3:
+                    $('#A3').addClass('active');
+                    break;
+                case 4:
+                    $('#A4').addClass('active');
+                    break;
+                case 5:
+                    $('#A5').addClass('active');
+                    break;
+                case 6:
+                    $('#A6').addClass('active');
+                    break;
+                case 7:
+                    $('#A7').addClass('active');
+                    break;
+                case 8:
+                    $('#A8').addClass('active');
+                    break;
+                case 9:
+                    $('#A9').addClass('active');
+                    break;
+
+
+            }
+        }
+
+        (jQuery);
+
+
+
+
+    </script>
+
+
+
+
+
+
+</head>
+<body>
+    <!-- Header -->
+    <div id="header">
+        <div class="shell">
+            <!-- Logo + Top Nav -->
+            <div id="top">
+                <h1>
+                    <a href="#">
+                        <marquee>Satnam Waheguru..</marquee>
+                    </a>
+                </h1>
+                <div id="top-navigation">
+                    Welcome <a href="#"><strong>@SessionManager.DisplayName</strong></a>
+                    <span>|</span>
+
+                    <span>|</span>
+                    <a href="@Url.Action(MVC.Account.ChangePassword())">Change Password</a>
+                    <span>|</span>
+                    <a href="@Url.Action(MVC.Account.Logout())">Log out</a>
+                </div>
+            </div>
+            <!-- End Logo + Top Nav -->
+            <!-- Main Nav -->
+            <div id="navigation">
+                <ul>
+                    <li><a id="A1" href="@Url.Action(MVC.Admin.DashBoard())" class="active"><span>User Management</span></a></li>
+                    <li><a id="A2" href="@Url.Action(MVC.Admin.ViewPagesGrid())"><span>Page Management</span></a></li>
+                    <li><a id="A3" href="@Url.Action(MVC.Admin.GalleryView())"><span>Banner Management</span></a></li>
+                    <li><a id="A9" href="@Url.Action(MVC.Admin.EventGalleryList())"><span>Event Gallery</span></a></li>
+                    <li><a id="A4" href="@Url.Action(MVC.Admin.NewsEventsView())"><span>Events</span></a></li>
+                    <li><a id="A6" href="@Url.Action(MVC.Admin.CommitteMembers())"><span>Manage Members</span></a></li>
+                    <li><a id="A7" href="@Url.Action(MVC.Admin.VideoGalleryListView())"><span>Video Gallery</span></a></li>
+                    <li><a id="A8" href="@Url.Action(MVC.Admin.SubscribedMembers())"><span>Subscribed Users</span></a></li>
+                    <li><a id="A5" href="@Url.Action(MVC.Admin.ContactusView())"><span>Contact Us</span></a></li>
+
+                </ul>
+            </div>
+            <!-- End Main Nav -->
+        </div>
+    </div>
+    <!-- End Header -->
+    <!-- Container -->
+    <div id="container">
+        <div class="shell">
+
+
+            <!-- Main -->
+            <div id="main">
+                <div class="cl">&nbsp;</div>
+
+                <!-- Content -->
+                <div id="content">
+
+                    @RenderBody()
+                </div>
+                <!-- End Content -->
+
+
+                <div class="cl">&nbsp;</div>
+            </div>
+            <!-- Main -->
+        </div>
+    </div>
+    <!-- End Container -->
+    <br />
+    <br />
+    <div id="footer">
+        <div class="shell">
+            <span class="left">&copy; @DateTime.Now.Year -GSS Gurdwara</span>
+
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/jqueryval")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

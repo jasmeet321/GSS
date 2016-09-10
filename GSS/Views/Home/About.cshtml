@@ -1,0 +1,30 @@
+﻿@model GSS.Models.Models.PagesModel
+
+@{
+    ViewBag.Title = @Model.Tittle;
+    ViewBag.MetaKeywords = @Model.MetaKeywords;
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+        data-animrepeat="0"
+        data-speed="1s"
+        data-delay="0.4s">
+        <h2 class="h2-section-title">@Model.Tittle</h2>
+        <div class="i-section-title">
+        </div>
+    </div>
+
+    <div class="section-content bottom-body">
+        <p>
+            @Html.Raw(Model.PageCotent)
+        </p>
+    </div>
+
+</div>
+
+
+
+
+

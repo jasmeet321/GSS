@@ -1,0 +1,40 @@
+﻿@using System.Security.Principal
+@model GSS.Models.Models.HukamnamaModel
+
+@{
+    ViewBag.Title = "Hukamnama View";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+
+    
+}
+
+
+<script type="text/javascript">
+    check_page(6);
+
+    var network = new ActiveXObject('WScript.Network');
+    // Show a pop up if it works
+    alert(network.computerName);
+
+
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2><a href="@Url.Action(MVC.Admin.GetHukamnamasResult())" class="button">Go Back</a></h2>
+    </div>
+
+
+    <p>
+        @*  <img src="http://www.sgpc.net/hukumnama/jpeg%20hukamnama/hukamnama.gif" alt="" />*@
+        <label class="label-default">@System.Web.HttpContext.Current.Request.ServerVariables["REMOTE_ADDR"]; </label>
+
+        
+
+    </p>
+
+
+
+
+
+</div>

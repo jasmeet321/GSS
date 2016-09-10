@@ -1,0 +1,25 @@
+﻿@model GSS.Models.Models.PagesModel
+
+@{
+    ViewBag.Title = "ContentView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script type="text/javascript">
+    check_page(2);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>@Model.Tittle  <a href="@Url.Action(MVC.Admin.ViewPagesGrid())" class="button">Go Back</a></h2>
+    </div>
+
+
+    <p>
+
+        @Html.Raw(Model.PageCotent)
+
+    </p>
+
+</div>

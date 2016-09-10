@@ -1,0 +1,17 @@
+﻿@model GSS.Models.Models.NewsEventsModel
+@using GSS.Common
+
+@if (Model != null)
+{
+    @Html.ActionLink("More Details....", "EventsDetails", new { id = @Model.Id}, new { @class = "btn btn-lg" })
+    <div class="callout-content">
+        <h4>@Model.HeadLine (@Model.EventDate.ToString("dddd-dd/MMM/yyyy"))</h4>
+        <p>@Html.Raw(@Model.Description)</p>
+    </div>
+}
+else
+{
+    <div class="callout-content">
+        <span class='dropcaps dropcaps-color-style'>No event found for selected date!!</span>
+    </div>
+}

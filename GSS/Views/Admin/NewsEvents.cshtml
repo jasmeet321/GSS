@@ -1,0 +1,170 @@
+﻿@model GSS.Models.Models.NewsEventsModel
+@{
+    ViewBag.Title = "NewsEvents";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+
+<link rel="stylesheet" href="//code.jquery.com/ui/1.11.2/themes/smoothness/jquery-ui.css">
+<link rel="stylesheet" href="/resources/demos/style.css">
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.2/jquery-ui.js"></script>
+<script src="~/Scripts/nicEdit.js"></script>
+
+
+<script type="text/javascript">
+    check_page(4);
+    $(function() {
+        $("#EventDate").datepicker();
+    });
+    var area1, area2;
+
+    function toggleArea1() {
+        if (!area1) {
+            area1 = new nicEditor({ fullPanel: true }).panelInstance('myArea1', { hasPanel: true });
+        } else {
+            area1.removeInstance('myArea1');
+            area1 = null;
+        }
+    }
+
+    function addArea2() {
+        area2 = new nicEditor({ fullPanel: true }).panelInstance('myArea2');
+    }
+    function removeArea2() {
+        area2.removeInstance('myArea2');
+    }
+
+    bkLib.onDomLoaded(function () { toggleArea1(); });
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Add New Event</h2>
+    </div>
+
+    <span class="label label-danger center" style="height: 26px; font-size: 15px;">@ViewBag.error</span>
+    <div class="form">
+
+        @using (Html.BeginForm("NewsEvents", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "myform" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <p>
+                <label>Event Tittle<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.HeadLine, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.HeadLine, "", new { @class = "errors" })
+            </p>
+            <p>
+                <label>Event Date<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.EventDate, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.EventDate, "", new { @class = "errors" })
+            </p>
+
+            <p>
+
+                <label>Event Place<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.PlaceofEvent, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.PlaceofEvent, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <div id="sample">
+                    <span class="errors">@ViewBag.error</span>
+                    <label>Event Description <span>(Required Field)</span></label>
+                    @Html.TextAreaFor(d => d.Description, new { @class = "field size1", @style = "width: 720px; height: 150px;", @id = "myArea1" })
+                    @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errors" })
+                </div>
+            </p>
+
+            <p>
+                <label>Upload Event Image</label>
+                <input type="file" multiple="multiple" name="File1" id="File1" accept="image/*" />
+
+            </p>
+
+            <div class="form-group col-sm-6">
+                @if (Model != null && (Model.Id != 0))
+                {
+
+
+                    <div id="dialog-confirm"></div>
+
+                    <div class="col-sm-10">
+                        @if (Model != null && Model.Images != null)
+                        {
+                            <ul class="product-grid" style="list-style: none;">
+                                @foreach (var image in Model.Images)
+                                {
+                                    if (image.ImagePath != null)
+                                    {
+                                        <li>
+                                            <a title="Delete Image" onclick="return deleteImage(@image.Id.ToString(), @Model.Id.ToString()); " href="#"><span>Remove Image</span></a>
+                                            <img style="width: 98px; height: 98px;" src='/@image.ImagePath' alt="@image.ImageName" />
+                                        </li>
+                                    }
+                                }
+                            </ul>
+                        }
+
+                    </div>
+
+                }
+            </div>
+
+            <div class="clear-fix"></div>
+
+            <p>
+                <input type="submit" value="Submit" class="button" />
+            </p>
+
+        }
+    </div>
+</div>
+
+<script type="text/javascript">
+
+    function deleteImage(id, eventId) {
+
+        $("#dialog-confirm").html("<b>Are you sure to delte this Image</b>");
+
+        // Define the Dialog and its properties.
+        $("#dialog-confirm").dialog({
+            resizable: false,
+            modal: true,
+            title: "Confirmation Message",
+            height: 150,
+            width: 250,
+            buttons: {
+                "Yes": function () {
+
+                    callbackimage(id, eventId);
+                },
+                "No": function () {
+                    $(this).dialog('close');
+                }
+            }
+        });
+    }
+
+    function callbackimage(id, eventId) {
+
+        var requestData = "";
+        requestData = {
+            'id': id,
+            'eventId': eventId
+        };
+        $.ajax({
+            url: '/Admin/DeleteEventImage/',
+            type: 'POST',
+            data: requestData,
+            datatype: "json",
+            success: function (msg) {
+                location.reload();
+            }
+        });
+
+    }
+
+</script>

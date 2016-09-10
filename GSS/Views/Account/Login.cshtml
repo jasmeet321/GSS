@@ -1,0 +1,51 @@
+﻿@model GSS.Models.Models.LogonModel
+@{
+
+    Layout = "";
+
+}
+@{
+    string pageTitle = @ViewBag.Title ?? "Login | Admin Area";
+
+}
+<title>@pageTitle</title>
+<script src="~/Scripts/jquery-1.8.2.js"></script>
+<link href="~/Content/Login.css" rel="stylesheet" />
+
+@Scripts.Render("~/bundles/jqueryval")
+
+<div class="login" id="Login">
+    @using (Html.BeginForm("Login", "Account", FormMethod.Post, new { enctype = "multipart/form-data", id = "myform" }))
+    {
+
+
+        <div class="login-screen">
+            <div class="app-title">
+                <h1>Login</h1>
+                <span class="errors">@ViewBag.error</span>
+                <span class="success errors"> @TempData["Message"]</span>
+            </div>
+            <div class="login-form">
+                <div class="control-group">
+
+                    @Html.TextBoxFor(d => d.UserName, new { @class = "login-field", placeholder = "Username", @id = "login-name" })
+                    <label class="login-field-icon fui-user" for="login-name"></label>
+                    @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errors" })
+                </div>
+                <div class="control-group">
+
+                    @Html.PasswordFor(d => d.Password, new { @class = "login-field", placeholder = "Password", @id = "login-pass" })
+                    <label class="login-field-icon fui-lock" for="login-pass"></label>
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errors" })
+                </div>
+                <input type="submit" class="btn btn-primary btn-large btn-block" value="Login" />
+                <a class="login-link" href="@Url.Action(MVC.Account.ForgotPassword())">Lost your password?</a>
+                <a class="login-link" href="@Url.Action(MVC.Home.Index())">Back to Home Page!!</a>
+            </div>
+        </div>
+
+
+    }
+</div>
+
+

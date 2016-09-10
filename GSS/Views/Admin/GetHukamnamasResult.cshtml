@@ -1,0 +1,39 @@
+﻿@model IEnumerable<GSS.Models.Models.HukamnamaModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "Manage Hukamnama";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script type="text/javascript">
+    check_page(6);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Hukamnama Management  <a href="@Url.Action(MVC.Admin.AddHukamnama())" class="add-button">Upload</a></h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                              grid.Column("Tittle", format: @<text>@item.Tittle
+                            </text>),
+                                                   
+                grid.Column("Content", format: @<text>
+
+            @{ string str = item.Id.ToString(); }
+
+            <a href="@Url.Action(MVC.Admin.ViewHukamnama(str))" class="icon-book">Click here to view more..</a>
+
+                </text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteHukamnama(str))" class="ico del indent" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.AddHukamnama(str))" class="ico edit indent">Edit</a> </text>)
+
+                                                                                                 ))
+
+    </div>
+</div>

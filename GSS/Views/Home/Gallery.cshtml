@@ -1,0 +1,56 @@
+﻿@model  List<GSS.Models.Models.EventGalleryModel>
+@{
+    ViewBag.Title = "Event Gallery";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+         data-animrepeat="0"
+         data-speed="1s"
+         data-delay="0.4s">
+        <h2 class="h2-section-title">Event Gallery</h2>
+        <div class="i-section-title">
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+<div class="section-content bottom-body">
+
+
+    <div class="space-sep20"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <div class="portfolio-items portfolio-items-cols3">
+                <!-- Project Description -->
+                @foreach (var images in Model.ToList())
+                {
+
+
+                    <!-- Portfolio Item -->
+                    <div class="thumb-label-item branding">
+                        <a href="@Url.Action(MVC.Home.GetEventImagesbyEvent(images.Id))">   <img style="height: 121px; width: 140px;" src="~/@images.ThumbnailImage" alt="@images.EventName" /></a>
+                        <h4 class="h4-section-title" style="margin-top: 10px;">@images.EventName</h4>
+                    </div>
+                      
+                   
+
+                    <!-- //Portfolio Item// -->
+                    <!-- Portfolio Item -->
+                }
+            </div>
+        </div>
+        <!-- //Project Description// -->
+    </div>
+</div>
+
+
+

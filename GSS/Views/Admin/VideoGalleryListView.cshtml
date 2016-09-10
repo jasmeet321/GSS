@@ -1,0 +1,67 @@
+﻿@model List<GSS.Models.Models.VideoGalleryModel>
+@{
+    ViewBag.Title = "VideoGalleryListView";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+<script type="text/javascript">
+    check_page(7);
+</script>
+
+<style>
+    #largeImgPanel {
+        text-align: center;
+        visibility: hidden;
+        position: fixed;
+        z-index: 100;
+        top: 0;
+        left: 0;
+        width: 80%;
+        height: 70%;
+        background-color: rgba(100,100,100, 0.5);
+        margin-left: 104px;
+        margin-top: 89px;
+    }
+</style>
+
+<script type="text/javascript">
+    function showImage(imgName) {
+        document.getElementById('largeImg').src = imgName;
+        showLargeImagePanel();
+        unselectAll();
+    }
+    function showLargeImagePanel() {
+        document.getElementById('largeImgPanel').style.visibility = 'visible';
+    }
+    function unselectAll() {
+        if (document.selection) document.selection.empty();
+        if (window.getSelection) window.getSelection().removeAllRanges();
+    }
+    function hideMe(obj) {
+        obj.style.visibility = 'hidden';
+    }
+
+</script>
+
+
+<div class="box">
+    <div class="box-head">
+        <h2>Video Gallery Management  <a href="@Url.Action(MVC.Admin.AddVideo(""))" class="add-button" style="margin-left:637px;">Add Video</a></h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                     grid.Column("Tittle", format: @<text>@item.Tittle
+        </text>),
+
+                                     grid.Column("Description", format: @<text>@item.Description</text>),
+
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteVideo(str))" class="ico del" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.AddVideo(str))" class="ico edit indent">Edit</a> </text>)))
+    </div>
+
+</div>
+
+

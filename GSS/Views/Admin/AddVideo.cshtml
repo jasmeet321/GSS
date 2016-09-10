@@ -1,0 +1,46 @@
+﻿@model GSS.Models.Models.VideoGalleryModel
+@{
+    ViewBag.Title = "Add Video";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(7);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Add New Video</h2>
+    </div>
+    <div class="form">
+
+        @using (Html.BeginForm("AddVideo", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "myform" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <p>
+                <label>Video Tittle<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.Tittle, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.Tittle, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Description<span>(Required Field)</span></label>
+                @Html.TextAreaFor(d => d.Description, new { @class = "field size1", @cols = 30, @rows = 10 })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Video URL<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.VideoURL, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.VideoURL, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <input type="submit" value="Submit" class="button" />
+            </p>
+
+        }
+    </div>
+</div>
+

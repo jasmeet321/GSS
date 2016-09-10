@@ -1,0 +1,48 @@
+﻿@model IEnumerable<GSS.Models.Models.SubscriptionModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "Manage Subscription";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+
+<script type="text/javascript">
+    check_page(8);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Manage Subscription </h2>
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                              grid.Column("Memeber Name", format: @<text>@item.FirstName @item.LastName
+        </text>),
+                                                   grid.Column("Address", format: @<text>
+        @item.Address
+        </text>),
+         grid.Column("Email Address", format: @<text>@item.EmailAddress
+        </text>),
+           grid.Column("ContactNumber", format: @<text>@item.ContactNumber
+        </text>),
+         grid.Column("Subscription", format: @<text> @if (item.IsSubscribed)
+                                                     {
+             <span>Subscribed</span>
+                                                     }
+                                                     else
+                                                     {
+                                                         
+             <span>Not Subscribed</span>
+                                                     }
+        </text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteSubscription(str))" class="ico del indent" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.ManageSubscription(str))" class="ico edit indent">Edit</a> </text>)
+
+                                                                                                ))
+
+    </div>
+</div>

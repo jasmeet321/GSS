@@ -1,0 +1,91 @@
+﻿@model List<GSS.Models.Models.CommitteMemberModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "Committee Members";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(6);
+    var TempData = "@TempData["message"]";
+    if (TempData != null && TempData != "") {
+        var message = "@TempData["message"]";
+        alert(message);
+    };
+
+    function bindgridupdated() {
+        var requestData = "";
+        var url = "/Admin/GetByCommitteeId";
+        var id = $("#committeelist").val();
+        if (id != 0) {
+            requestData = { 'id': id };
+            $("#loadingPopup").show();
+            jQuery.ajax({
+                type: "Get",
+                data: requestData,
+                dataType: 'html',
+                url: url,
+                cache: false,
+                success: function (result) {
+                    bindhtmlinsuccess(result);
+                    $("#loadingPopup").hide();
+                },
+                error: function (result) {
+                }
+            });
+
+        }
+    }
+
+    function bindhtmlinsuccess(result) {
+        var listArea = $(result).find("#committeedata").html();
+        $("#committeedata").html(listArea);
+    }
+
+
+</script>
+
+<div class="box" id="committeedata">
+    <div class="box-head">
+
+        <h2>Member Management  &nbsp;&nbsp;&nbsp;&nbsp;
+        <select id="committeelist" onchange="bindgridupdated()" class="ui-selectable">
+            <option value="0">---Select Committee---</option>
+            <option value="1000">Board of Directors</option>
+            <option value="1001">Executive Committee</option>
+            <option value="1002">Secratory</option>
+            <option value="1003">Treasure</option>
+            <option value="1004">Sports Committee</option>
+            <option value="1005">Working Comittee</option>
+        </select>
+            <a href="@Url.Action(MVC.Admin.CommitteMembers())" style="color: white">ClearFilter </a></h2>
+        <a href="@Url.Action(MVC.Admin.CreateMember(""))" class="add-button">Add Member</a>
+
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                     grid.Column("Member Name", format: @<text>@item.FirstName  @item.Lastname
+        </text>),
+                grid.Column("Email Address", format: @<text>@item.EmailAddress</text>),
+        grid.Column("Committee Name", format: @<text> <span>@if (item != null)
+                                                            {
+                                                                foreach (var names in item.Committeename)
+                                                                {
+
+                                                                        @names.ToString();
+                                                                }
+                                                            }</span> </text>),
+
+                    grid.Column("Address", format: @<text>@item.Address @item.City @item.State  @item.Zip</text>),
+         grid.Column("Contact Number", format: @<text>@item.ContactNumber</text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.Id.ToString(); }<a href="@Url.Action(MVC.Admin.DeleteMember(str))" class="ico del" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.CreateMember(str))" class="ico edit">Edit</a> </text>)
+
+                                                                                      ))
+
+    </div>
+</div>

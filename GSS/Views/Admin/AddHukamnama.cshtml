@@ -1,0 +1,55 @@
+﻿@model GSS.Models.Models.HukamnamaModel
+@{
+    ViewBag.Title = "Hukamnama";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(6);
+</script>
+
+
+
+<div class="box">
+    <div class="box-head">
+        <h2>Add New Image</h2>
+    </div>
+    <div class="form">
+        @using (Html.BeginForm("AddHukamnama", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "myform" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <p>
+                <label>Title<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.Tittle, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.Tittle, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Upload Image<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.HukamnamImage, new { @class = "field size1 file_1", type = "file" })
+                @if (Model != null)
+                {
+                    @Html.HiddenFor(d => d.HukamnamImage)
+                }
+                @if (ViewBag.message != "")
+                {
+                    <span class="errors"> @ViewBag.message</span>
+                }
+                else
+                {
+                    @Html.ValidationMessageFor(model => model.HukamnamImage, "", new { @class = "errors" })
+                }
+
+            </p>
+
+            <p>
+                <input type="submit" value="Submit" class="button" />
+            </p>
+
+        }
+    </div>
+
+
+
+</div>

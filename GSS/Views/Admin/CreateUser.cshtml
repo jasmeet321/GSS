@@ -1,0 +1,97 @@
+﻿@model GSS.Models.Models.UserModel
+@{
+
+    ViewBag.Title = "Create User";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(1);
+</script>
+
+<div class="box">
+    <div class="box-head">
+        <h2>Add New User</h2>
+    </div>
+    <div class="form">
+
+        @using (Html.BeginForm("CreateUser", "Admin", FormMethod.Post, new { enctype = "multipart/form-data", id = "myform" }))
+        {
+
+            @Html.AntiForgeryToken()
+            <p>
+                <label>User Name<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.UserName, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.UserName, "", new { @class = "errors" })
+            </p>
+
+            if (Model == null)
+            {
+                <p>
+
+                    <label>Password<span>(Required Field)</span></label>
+                    @Html.PasswordFor(d => d.Password, new { @class = "field size1" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errors" })
+                </p>
+            }
+            else
+            {
+              <p>
+
+                   @Html.HiddenFor(d=>d.UserId)
+                    @Html.HiddenFor(d => d.Password, new { @class = "field size1" })
+                    @Html.ValidationMessageFor(model => model.Password, "", new { @class = "errors" })
+                </p>
+            }
+
+            <p>
+
+                <label>First Name<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.FirstName, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Last Name<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.LastName, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Middle Name<span></span></label>
+                @Html.TextBoxFor(d => d.MiddleName, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "errors" })
+            </p>
+            <p>
+                <label>Phone<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.Phone, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Email Address<span>(Required Field)</span></label>
+                @Html.TextBoxFor(d => d.EmailAddress, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.EmailAddress, "", new { @class = "errors" })
+
+
+            </p>
+
+            <p>
+                <label>Address<span>(Required Field)</span></label>
+                @Html.TextAreaFor(d => d.Address, new { @class = "field size1", @cols = 30, @rows = 10 })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <label>Zip Code<span></span></label>
+                @Html.TextBoxFor(d => d.ZipCode, new { @class = "field size1" })
+                @Html.ValidationMessageFor(model => model.ZipCode, "", new { @class = "errors" })
+            </p>
+
+            <p>
+                <input type="submit" value="Submit" class="button" />
+            </p>
+
+        }
+    </div>
+</div>

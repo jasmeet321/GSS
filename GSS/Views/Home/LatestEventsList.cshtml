@@ -1,0 +1,41 @@
+﻿@using GSS.Common
+
+@{
+    ViewBag.Title = "Latest Events";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+         data-animrepeat="0"
+         data-speed="1s"
+         data-delay="0.4s">
+        <h2 class="h2-section-title">Latest Events</h2>
+        <div class="i-section-title">
+        </div>
+    </div>
+    @foreach (var events in SessionManager.NewsEventsList)
+    {
+        <div class="section-content bottom-body">
+            <div class="space-sep20"></div>
+
+            <h2 class="h2-section-title">@events.HeadLine</h2>
+
+            <div class="row">
+                <div class="col-md-12 col-sm-12">
+                    <p style="text-align: justify">
+                        <h3 class="h3-section-info">
+                            <b>Place of event :</b> @events.PlaceofEvent
+                        </h3>
+                        <span class="dropcaps dropcaps-color-style">@events.EventDate.ToString("dddd, MMMM-dd-yyyy")<br /></span>
+                    </p>                    
+                </div>
+            </div>
+            <div class="row" style="padding-left:15px;">
+                <p>
+                    <br />@Html.Raw(events.Description)
+                </p>
+            </div>
+        </div>
+    }
+</div>

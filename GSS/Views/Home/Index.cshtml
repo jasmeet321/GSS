@@ -1,0 +1,24 @@
+﻿@model  GSS.Models.Models.ContentViewModel
+@{
+    ViewBag.Title = "Home Page";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+<div class="event-post ">
+    <div class="event-span">
+        <div class="event-slider cycle-slideshow" data-cycle-slides=".slider-img" data-cycle-swipe="true" data-cycle-prev=".cycle-prev" data-cycle-next=".cycle-next">
+            <div class="fa fa-chevron-right cycle-next"></div>
+            <div class="fa fa-chevron-left cycle-prev"></div>
+            <div class="cycle-pager"></div>
+            @foreach (var images in Model.gallery)
+            {
+                <div class="slider-img">
+                    <img src="~/@images.ImagePath" alt="Latest Events" />
+                </div>
+            }
+        </div>
+    </div>
+</div>
+
+
+

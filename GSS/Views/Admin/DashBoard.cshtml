@@ -1,0 +1,40 @@
+﻿@model List<GSS.Models.Models.UserModel>
+@using GSS.Common;
+@{
+    ViewBag.Title = "DashBoard";
+    Layout = "~/Views/Shared/_LayoutAdmin.cshtml";
+}
+
+<script type="text/javascript">
+    check_page(1);
+    var TempData = "@TempData["message"]";
+    if (TempData != null && TempData!="") {
+        var message = "@TempData["message"]";
+        alert(message);
+    };
+</script>
+
+<div class="box">
+    <div class="box-head">
+       
+        <h2>User Management  <a href="@Url.Action(MVC.Admin.CreateUser())" class="add-button">Add New</a></h2> 
+    </div>
+    <div class="table">
+        @{
+            var grid = new WebGrid(Model, canPage: true, rowsPerPage: 50, canSort: false, ajaxUpdateContainerId: "Listtable");
+
+        }
+        @grid.GetHtml(tableStyle: "table table-striped table-bordered table-hover pagination_footer", headerStyle: "table-header", htmlAttributes: new { id = "DataGrid" },
+                 columns: grid.Columns(
+                     grid.Column("User Name", format: @<text>@item.UserName
+                     </text>),
+                    grid.Column("Initials", format: @<text>@item.FirstName  @item.Lastname</text>),
+                grid.Column("Email Address", format: @<text>@item.EmailAddress</text>),
+                    grid.Column("Phone", format: @<text>@item.Phone</text>),
+         grid.Column("Zip Code", format: @<text>@item.ZipCode</text>),
+        grid.Column("Content Control", format: @<text>@{ string str = item.UserId.ToString(); }<a href="@Url.Action(MVC.Admin.Delete(str))" class="ico del" onclick="return confirm('Are you sure?')">Delete</a><a href="@Url.Action(MVC.Admin.CreateUser(str))" class="ico edit">Edit</a> </text>)
+        
+                                                                                      ))
+
+    </div>
+</div>

@@ -1,0 +1,52 @@
+﻿@model  List<GSS.Models.Models.VideoGalleryModel>
+@{
+    ViewBag.Title = "Gallery";
+    Layout = "~/Views/Shared/_Frontendlayout.cshtml";
+}
+
+
+<div class="row">
+    <div class="col-md-12 col-sm-12 animated" data-animtype="fadeInUp"
+        data-animrepeat="0"
+        data-speed="1s"
+        data-delay="0.4s">
+        <h2 class="h2-section-title">Video Gallery</h2>
+        <div class="i-section-title">
+        </div>
+        <h3 class="h3-section-info">This Video gallery include the Video's of latest Gurmat Samangam and Gurpurab events...
+        </h3>
+    </div>
+</div>
+
+<div class="section-content bottom-body">
+
+
+    <div class="space-sep20"></div>
+    <div class="row">
+        <div class="col-md-12 col-sm-12">
+            <!-- Project Description -->
+
+            <div class="portfolio-items portfolio-items-cols3">
+                @foreach (var images in Model.ToList())
+                {
+
+
+                    <!-- Portfolio Item -->
+                    <div class="thumb-label-item branding">
+                        <div class="img-overlay thumb-label-item-img">
+                            <iframe  width="100%" height="100%" src="@images.VideoURL" frameborder="0" allowfullscreen></iframe>
+                        </div>
+                    </div>
+                    <!-- //Portfolio Item// -->
+                    <!-- Portfolio Item -->
+
+
+
+                }
+            </div>
+            <!-- //Project Description// -->
+        </div>
+    </div>
+
+
+</div>
